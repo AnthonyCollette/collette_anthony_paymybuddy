@@ -1,0 +1,154 @@
+:root {
+    --primary-color: #f69f1d;
+    --secondary-color: #207fee;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    background-color: white;
+    min-height: 100vh;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+input {
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #828282;
+}
+
+.btn--primary {
+    background-color: var(--primary-color);
+    padding: 14px 28px;
+    color: white;
+    border-radius: 8px;
+    width: fit-content;
+    font-weight: 700;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: hsl(30, 100%, 40%);
+    }
+}
+
+.register-page,
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.register-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    width: 100%;
+    margin: 66px 0 0;
+}
+
+.login-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+    width: 100%;
+    margin: 114px 0 0;
+}
+
+.auth-page {
+    width: 500px;
+    max-width: 90%;
+    padding: 64px 92px 106px 113px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: black 1px solid;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.register-page form button[type="submit"] {
+    margin-top: 102px;
+}
+
+.login-page form button[type="submit"] {
+    margin-top: 114px;
+}
+
+.register-page form button[type="submit"],
+.login-page form button[type="submit"] {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    border: 2px solid var(--secondary-color);
+    transition: all 0.3s ease-in-out;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.register-page form button[type="submit"]:hover,
+.login-page form button[type="submit"]:hover {
+    background-color: hsl(212, 100%, 40%);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    padding: 67px 80px;
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1280px;
+        width: 90%;
+        font-size: 20px;
+        font-weight: 500;
+
+        ul {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        button {
+            background-color: transparent;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        a,
+        button {
+            transition: color 0.2s ease-in-out;
+            &:hover {
+                color: var(--secondary-color);
+            }
+        }
+    }
+
+    .active {
+        color: var(--secondary-color);
+        font-weight: 700;
+    }
+}
