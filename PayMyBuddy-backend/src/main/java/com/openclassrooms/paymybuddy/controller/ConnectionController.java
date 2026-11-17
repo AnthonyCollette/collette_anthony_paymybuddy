@@ -2,6 +2,7 @@ package com.openclassrooms.paymybuddy.controller;
 
 import com.openclassrooms.paymybuddy.dto.ConnectionDTO;
 import com.openclassrooms.paymybuddy.service.ConnectionService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/connection")
+@RequestMapping("/connection")
 public class ConnectionController {
 
     private final ConnectionService connectionService;
@@ -20,17 +21,9 @@ public class ConnectionController {
     }
 
     @PostMapping
-    ResponseEntity<String> addConnection(@RequestBody ConnectionDTO connectionDTO) {
-        if (connectionDTO == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email address is empty.");
-        }
+    ResponseEntity<String> addConnection(@Valid @RequestBody ConnectionDTO connectionDTO) {
 
-        boolean connectionSuccess = connectionService.addConnection(connectionDTO);
-
-        if (!connectionSuccess) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This email address does not exist.");
-        }
-
+        connectionService.addConnection(connectionDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("New connection added.");
 
     }
