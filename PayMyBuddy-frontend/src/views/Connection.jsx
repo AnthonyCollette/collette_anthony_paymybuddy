@@ -3,11 +3,12 @@ import Nav from "../components/Nav";
 
 const Connection = () => {
     return (
-        <div>
+        <main>
             <Nav />
-            <h1>Chercher une relation</h1>
-            <ConnectionForm />
-        </div>
+            <div className="connection-page">
+                <ConnectionForm />
+            </div>
+        </main>
     );
 };
 

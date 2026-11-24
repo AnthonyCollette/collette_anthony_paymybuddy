@@ -1,8 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const AuthForm = ({ action }) => {
+    const { refreshUser } = useAuth();
     const navigate = useNavigate();
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries());
@@ -13,19 +15,31 @@ const AuthForm = ({ action }) => {
 
         const requestOptions = {
             method: "POST",
+            credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         };
 
-        fetch(url, requestOptions)
-            .then((response) =>
-                response.ok
-                    ? navigate("/")
-                    : Promise.reject("Failed to authenticate"),
-            )
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+        try {
+            const response = await fetch(url, requestOptions);
+
+            if (!response.ok) {
+                throw new Error("Failed to authenticate");
+            }
+
+            if (action === "register") {
+                navigate("/login");
+                return;
+            }
+
+            const user = await refreshUser();
+
+            if (user) {
+                navigate("/", { replace: true });
+            }
+        } catch (error) {
+            console.error("Error :", error);
+        }
     };
 
     return (
@@ -56,6 +70,15 @@ const AuthForm = ({ action }) => {
             <button type="submit">
                 {action === "register" ? "S'inscrire" : "Se connecter"}
             </button>
+            {action === "login" ? (
+                <Link to="/register" className="create-account-link">
+                    Créer un compte
+                </Link>
+            ) : (
+                <Link to="/login" className="create-account-link">
+                    Se connecter
+                </Link>
+            )}
         </form>
     );
 };

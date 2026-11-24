@@ -1,25 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Nav = () => {
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
-    const handleLogout = () => {
-        fetch(import.meta.env.VITE_API_URL + "/auth/logout", {
-            method: "POST",
-            credentials: "include",
-        })
-            .then((response) => {
-                if (response.ok) {
-                    navigate("/login");
-                } else {
-                    console.error("Erreur lors de la déconnexion");
-                }
-            })
-            .catch((error) => {
-                console.error(
-                    "Erreur lors de la requête de déconnexion",
-                    error,
-                );
-            });
+    const handleLogout = async () => {
+        await logout();
+        navigate("/login", { replace: true });
     };
 
     return (
